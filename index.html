@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Voyage | Itinéraire & Visa Intelligent</title>
+    <style>
+        :root { --primary: #ff5a5f; --dark: #484848; --light: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7f7f7; color: var(--dark); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 600px; width: 100%; background: var(--light); padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); text-align: center; font-size: 1.8rem; }
+        p { text-align: center; color: #767676; }
+        label { font-weight: bold; display: block; margin-top: 15px; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
+        button { width: 100%; padding: 15px; background-color: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 25px; transition: 0.3s; }
+        button:hover { background-color: #e34d52; transform: translateY(-2px); }
+        #resultat { display: none; margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+        .links-box { background: #fff8f8; border: 1px solid #ffecec; padding: 15px; border-radius: 10px; margin-top: 20px; }
+        .links-box a { color: var(--primary); text-decoration: none; font-weight: bold; display: block; margin: 10px 0; }
+        .loader { text-align: center; display: none; color: var(--primary); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌍 Mon Assistant Voyage IA</h1>
+    <p>Planifiez votre itinéraire et vérifiez vos visas instantanément.</p>
+
+    <label for="dest">Où voulez-vous aller ?</label>
+    <input type="text" id="dest" placeholder="Ex: Tokyo, Bali, New York...">
+
+    <label for="pass">Nationalité de votre passeport :</label>
+    <input type="text" id="pass" placeholder="Ex: Française, Belge, Canadienne...">
+
+    <label for="budget">Votre budget :</label>
+    <select id="budget">
+        <option value="eco">Petit budget (Backpacker) 🎒</option>
+        <option value="standard" selected>Standard (Confort) 🏨</option>
+        <option value="luxe">Luxe (Premium) ✨</option>
+    </select>
+
+    <button onclick="genererVoyage()">Générer mon plan de voyage</button>
+
+    <div id="loader" class="loader">Analyse des meilleures options en cours... ✈️</div>
+
+    <div id="resultat">
+        <div id="contenu-ia">
+            <!-- L'IA écrira ici -->
+        </div>
+
+        <div class="links-box">
+            <h4>💡 Réservations conseillées :</h4>
+            <!-- 709289S -->
+            <a href="https://www.agoda.com" target="_blank">🏨 Réserver un hôtel (Promo Agoda)</a>
+            <a href="https://www.klook.com" target="_blank">🎟️ Activités & Tours (Klook)</a>
+            <a href="https://airalo.tp.st" target="_blank">📶 Acheter une eSIM Locale (Airalo)</a>
+        </div>
+    </div>
+    
+    <p style="font-size: 0.8rem; margin-top: 40px;">* Ce site utilise des liens d'affiliation. Nous pouvons percevoir une commission sans frais pour vous.</p>
+</div>
+
+<script>
+    function genererVoyage() {
+        const dest = document.getElementById('dest').value;
+        const pass = document.getElementById('pass').value;
+
+        if(!dest || !pass) { alert("Veuillez remplir tous les champs !"); return; }
+
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('resultat').style.display = 'none';
+
+        // Simulation pour le moment - Demain on connecte Make.com ici !
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('resultat').style.display = 'block';
+            document.getElementById('contenu-ia').innerHTML = `
+                <h3>Voyage à ${dest}</h3>
+                <p>✅ <strong>Visa :</strong> Analyse en cours pour un passeport ${pass}...</p>
+                <p>📅 <strong>Itinéraire :</strong> Votre programme personnalisé arrive bientôt grâce à notre IA !</p>
+            `;
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
