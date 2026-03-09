@@ -3,61 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Travel Planner | Itinerary & Visa Assistant</title>
+    <title>AI Travel Planner | Smart Itinerary & Visa Assistant</title>
     <style>
-        :root { --primary: #ff5a5f; --dark: #484848; --light: #ffffff; }
-        body { font-family: 'Helvetica Neue', sans-serif; background-color: #f7f7f7; color: var(--dark); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { max-width: 600px; width: 100%; background: var(--light); padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        h1 { color: var(--primary); text-align: center; font-size: 1.8rem; }
-        label { font-weight: bold; display: block; margin-top: 15px; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background-color: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 25px; }
-        #result { display: none; margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
-        .links-box { background: #fff8f8; border: 1px solid #ffecec; padding: 15px; border-radius: 10px; margin-top: 20px; }
-        .links-box a { color: var(--primary); text-decoration: none; font-weight: bold; display: block; margin: 10px 0; }
+        :root { --primary: #ff5a5f; --dark: #484848; --light: #ffffff; --bg: #f7f7f7; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: var(--bg); color: var(--dark); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 650px; width: 100%; background: var(--light); padding: 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); text-align: center; font-size: 2rem; margin-bottom: 10px; }
+        p.subtitle { text-align: center; color: #767676; margin-bottom: 30px; }
+        label { font-weight: bold; display: block; margin-top: 20px; font-size: 0.9rem; }
+        input, select { width: 100%; padding: 14px; margin-top: 8px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
+        button { width: 100%; padding: 16px; background-color: var(--primary); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 30px; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,90,95,0.3); }
+        button:hover { background-color: #e34d52; transform: translateY(-2px); }
+        #result-section { display: none; margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
+        .links-box { background: #fff8f8; border: 1px solid #ffecec; padding: 20px; border-radius: 12px; margin-top: 25px; }
+        .links-box h4 { margin-top: 0; color: var(--primary); font-size: 1.1rem; }
+        .links-box a { color: #333; text-decoration: none; font-weight: 600; display: block; margin: 12px 0; padding: 12px; background: white; border-radius: 8px; border: 1px solid #eee; transition: 0.2s; }
+        .links-box a:hover { border-color: var(--primary); color: var(--primary); transform: translateX(5px); }
+        .loader { display: none; text-align: center; margin-top: 20px; color: var(--primary); font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🌍 AI Travel Assistant</h1>
-    <p>Get your custom itinerary and visa requirements in seconds.</p>
+    <h1>🌍 AI Travel Planner</h1>
+    <p class="subtitle">Instant custom itineraries & visa requirements for your next adventure.</p>
 
-    <label>Where do you want to go?</label>
-    <input type="text" id="dest" placeholder="e.g. Tokyo, Bali, Rome...">
+    <label for="dest">Where are you going?</label>
+    <input type="text" id="dest" placeholder="e.g. Tokyo, Bali, New York City...">
 
-    <label>Your Passport Nationality:</label>
+    <label for="pass">Your Passport (Nationality):</label>
     <input type="text" id="pass" placeholder="e.g. American, British, French...">
 
-    <label>Budget Level:</label>
+    <label for="budget">Your Budget Style:</label>
     <select id="budget">
-        <option value="eco">Budget 🎒</option>
-        <option value="standard" selected>Standard 🏨</option>
-        <option value="luxury">Luxury ✨</option>
+        <option value="budget">Budget 🎒 (Hostels & Street Food)</option>
+        <option value="standard" selected>Standard 🏨 (Comfort & Local Vibes)</option>
+        <option value="luxury">Luxury ✨ (Premium Hotels & Fine Dining)</option>
     </select>
 
-    <button onclick="generateTrip()">Generate My Travel Plan</button>
+    <button onclick="startAI()">Generate My Travel Plan</button>
 
-    <div id="result">
-        <div id="ai-content">
-            <!-- AI will write here -->
+    <div id="loader" class="loader">Thinking... ✈️ Scaling the globe for the best deals...</div>
+
+    <div id="result-section">
+        <div id="ai-output">
+            <!-- AI Content will be injected here via Make.com -->
         </div>
 
         <div class="links-box">
-            <h4>💡 Recommended Bookings:</h4>
-            <!-- 709289 -->
-            <a href="https://www.agoda.com" target="_blank">🏨 Book Hotels (Agoda Deals)</a>
-            <a href="https://www.klook.com" target="_blank">🎟️ Tours & Activities (Klook)</a>
-            <a href="https://airalo.tp.st" target="_blank">📶 Get Local eSIM (Airalo)</a>
-            <a href="https://www.ivisa.com" target="_blank">🛂 Check Visa Requirements (iVisa)</a>
+            <h4>💡 Traveler's Essentials (Book Now):</h4>
+            
+            <!-- FLIGHTS -->
+            <a href="https://aviasales.tpk.lv/7CvZojBD" target="_blank">✈️ Cheapest Flights (Aviasales)</a>
+          
+            
+            <!-- TRANSFER -->
+            <a href="https://https://tpk.lv/XgE24AHo" target="_blank">🚕 Book Your Private Airport Transfer</a>
+            
+            <!-- ACTIVITIES -->
+            <a href="https://www.klook.com" target="_blank">🎟️ Tours & Local Activities (Klook)</a>
+            <a href="https://tiqets.tpk.lv/BQyQRhme" target="_blank">🏛️ Museum & Attraction Tickets (Tiqets)</a>
+            
+            <!-- CONNECTIVITY -->
+            <a href="https://airalo.tpk.lv/XWTPLQ6Z" target="_blank">📶 Instant Local eSIM (Airalo)</a>
+            
+            <!-- VISA (Update this once approved) -->
+            <a href="https://www.ivisa.com/ target="_blank">🛂 Check & Apply for Visas (iVisa)</a>
         </div>
     </div>
+    
+    <p style="font-size: 0.7rem; color: #999; margin-top: 30px; text-align: center;">
+        * We may earn a small commission from these links at no extra cost to you.
+    </p>
 </div>
 
 <script>
-    function generateTrip() {
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('ai-content').innerHTML = "<h3>Analyzing...</h3><p>Connecting to AI tomorrow!</p>";
+    function startAI() {
+        const dest = document.getElementById('dest').value;
+        const pass = document.getElementById('pass').value;
+
+        if(!dest || !pass) {
+            alert("Please enter a destination and your passport nationality!");
+            return;
+        }
+
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('result-section').style.display = 'none';
+
+        // Simulation for tonight - We connect Make.com tomorrow!
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('result-section').style.display = 'block';
+            document.getElementById('ai-output').innerHTML = `
+                <h3>Your Trip to ${dest} is ready!</h3>
+                <p><strong>🛂 Visa Check:</strong> Analysis for ${pass} passport in progress...</p>
+                <p><strong>📅 Daily Plan:</strong> Our AI Agent is preparing your perfect itinerary. Make sure to check the booking links below for the best prices.</p>
+            `;
+        }, 2500);
     }
 </script>
 
